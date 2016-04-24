@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="Task2">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task2</title>
+  <link href="/assets/favicon.ico" rel="icon" type="image/x-icon" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js">
+  </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script type="text/javascript" src="/assets/scripts/client.min.js"></script>
+  <link rel="stylesheet" href="/views/styles.css">
+</head>
+
+<body ng-controller="BehindCurtain as vm">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="page-header text-center">
+        <h3>Task2  <small>  by Courtney Ives</small></h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- :::::::::::::: MESSAGE INPUT ::::::::::::::: -->
+      <div class="col-md-6">
+        <div class="input well well-sm">
+          <h4>New Task</h4>
+          <input type="text" name="name" placeholder="Ex: Buy a trampoline" ng-model="vm.taskContent">
+          <button type="button" name="submit" ng-click="vm.newTask()">Add</button>
+          <button type="button" name="clear" ng-click="vm.clear()">Clear</button>
+        </div>
+      </div><!-- ::: CLOSE INPUT ::: -->
+
+      <!-- :::::::::::::: MESSAGE LIST ::::::::::::::: -->
+      <div class="col-md-6">
+        <ol class="well well-sm" ng-show="vm.listShow">
+          <h4>To Do:</h4>
+          <li ng-repeat="item in vm.taskList track by $index">{{item}}</li>
+          <button type="button" name="delete" ng-click="vm.beGone()">Delete</button>
+
+          <!-- debug: {{vm.list}} -->
+
+        </ol>
+      </div> <!-- ::: CLOSE LIST ::: -->
+    </div>
+  </div>
+
+
+</body>
+</html>
