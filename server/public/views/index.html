@@ -34,38 +34,32 @@
           <button type="button" name="clear" ng-click="vm.clear()">Clear</button>
         </div>
 
-        debug: {{vm.taskList}}
+        <!-- debug: {{vm.taskList}}
         {{vm.oneTask}}
-        {{vm.oneTask.task_content}}
+        {{vm.oneTask.task_content}} -->
       </div><!-- ::: CLOSE INPUT ::: -->
 
       <!-- :::::::::::::: MESSAGE LIST ::::::::::::::: -->
 
       <div class="col-md-6">
+        <div class="the-list well well-sm">
+          <h4>To Do</h4>
 
-        <h4>To Do</h4>
-
-        <div class="panel panel-default" ng-repeat="item in vm.taskList track by $index">
-          <div class="panel-body">
-            Task: {{item.task_content}}
-            Due: {{item.due_date}}
-            <input type="checkbox" class="checkbox-inline" ng-click="vm.markDone()">
-            <button type="button" name="delete" ng-click="vm.beGone(item.id)">Delete</button>
+          <div class="panel panel-default" ng-repeat="item in vm.taskList track by $index">
+            <div class="panel-body">
+              <span>Task: {{item.task_content}}</span>
+              <p>Due: {{item.due_date}}</p>
+              <!-- <input type="checkbox" class="checkbox-inline" value="true" ng-model="vm.checkedStatus" ng-change="vm.update(item)">
+              {{vm.checkedStatus}}
+              {{item.task_status}} -->
+              <button type="button" name="delete" ng-click="vm.beGone(item.id)">Delete</button>
+            </div>
           </div>
         </div>
 
-        <!-- <h4>Completed</h4>
-        <div class="panel panel-default" ng-repeat="item in vm.taskList track by $index">
-          <div class="panel-body">
-            Task: {{item.task_content}}
-            Due: {{item.due_date}}
-            <input type="checkbox" class="checkbox-inline" ng-click="vm.markDone()">
-            <button type="button" name="delete" ng-click="vm.beGone()">Delete</button>
-          </div>
-        </div> -->
-      </div> <!-- ::: CLOSE COLUMN ::: -->
-    </div>
-  </div>
+  </div> <!-- ::: CLOSE COLUMN ::: -->
+</div>
+</div>
 
 
 </body>

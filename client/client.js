@@ -22,24 +22,21 @@ app.controller('BehindCurtain', ['$http', function($http){
 
   };
 
+  // vm.checkedStatus = false;
 
   vm.beGone = function(id){
     $http.post('/tasks/remove', {id:id});
     vm.getAll();
   };
 
-  vm.markDone = function(){
-    if (vm.oneTask.task_status === false){
-      vm.oneTask.task_status = true;
-      console.log('task status changed to true/done');
-    } else {
-      vm.oneTask.task_status = false;
-      console.log('task status changed to false/undone');
-    }
+  vm.update = function(item){
+    $http.put('/tasks/' + item.id, {task_content: item.task_content, task_status: item.task_status, id:item.id}).then(function(response){
+      vm.getAll();
+    });
   };
 
   vm.clear = function(){
-    vm.taskContent = '';
+    vm.oneTask = {};
   };
 
   vm.getAll();

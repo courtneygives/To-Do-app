@@ -62,9 +62,69 @@ router.post('/', function(request, response){
 });
 
 // ::::::::: MODIFY ROW ::::::::: //
-// var query = client.query("UPDATE tasks SET completed = true WHERE (id = " + taskID + ");");
+router.put('/:todo_id', function(request, response) {
+    var results = [];
 
+    // Grab data from the URL parameters
+    var id = request.params.todo_id;
 
+    // Grab data from http request
+    // var data = {task_content: request.body.task_content, task_status: request.body.task_status};
+
+    console.log('Requested with a body of', request.body);
+    var data = request.body;
+
+    // Get a Postgres client from the connection pool
+    pg.connect(Connect, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return response.status(500).send(json({ success: false, data: err}));
+        }
+
+        // SQL Query > Update Data
+        client.query("UPDATE tasks SET task_content=($1), task_status=($2) WHERE id=($3)", [data.task_content, data.task_status, id]);
+
+        // SQL Query > Select Data
+        var query = client.query("SELECT * FROM tasks ORDER BY id ASC");
+
+        // Stream results back one row at a time
+        query.on('row', function(row) {
+            results.push(row);
+        });
+
+        // After all data is returned, close connection and return results
+        query.on('end', function() {
+            done();
+            return response.json(results);
+        });
+    });
+
+});
+
+// router.put('/:id', function(request, response){
+//   console.log('Updating task: ' + request.body.id);
+//   pg.connect(Connect, function(err, client, done){
+//     if (err){
+//       console.log('Error updating: ' + err);
+//       response.sendStatus(500);
+//     } else {
+//       var result = [];
+//       var query = client.query('UPDATE tasks SET task_status = true WHERE id = ' + request.params.id + ';');
+//
+//       query.on('row', function(row){
+//         result.push(row);
+//       });
+//
+//       query.on('end', function(){
+//         done();
+//         response.sendStatus(200);
+//         return results.json(results);
+//       });
+//     }
+//   });
+// });
 
 // ::::::::: DELETE ROW ::::::::: //
 router.post('/remove', function(request, response){
@@ -74,9 +134,18 @@ router.post('/remove', function(request, response){
       console.log('Error posting: ' + err);
       response.sendStatus(500);
     } else {
-      var query = client.query('DELETE FROM tasks WHERE (id = ' + request.body.id + ';)');
-  }
-});
+      var query = client.query('DELETE FROM tasks WHERE (id = ' + request.body.id + ');');
+
+      query.on('row', function(row){
+        result.push(row);
+      });
+
+      query.on('end', function(){
+        done();
+        response.sendStatus(200);
+      });
+    }
+  });
 });
 
 
