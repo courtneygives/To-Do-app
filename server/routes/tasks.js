@@ -42,9 +42,11 @@ router.post('/', function(request, response){
       response.sendStatus(500);
     } else {
       var result = [];
-      var task_text = request.body;
+      var task_content = request.body.task_content;
+      var task_status = request.body.task_content;
+      var due_date = request.body.due_date;
 
-      var query = client.query('INSERT INTO tasks (task_text) VALUES ($1) ' + 'RETURNING id, task_text', [task_text]);
+      var query = client.query('INSERT INTO tasks (task_content, task_status, due_date) VALUES ($1, $2, $3)' + 'RETURNING id, task_content, task_status, due_date', [task_content, task_status, due_date]);
 
       query.on('row', function(row){
         result.push(row);

@@ -17,7 +17,9 @@ function initializeDB(){
       var query = client.query(
         'CREATE TABLE IF NOT EXISTS tasks(' +
         'id SERIAL PRIMARY KEY,' +
-        'task_text varchar(255) NOT NULL);');
+        'task_content varchar(255),' +
+        'task_status BOOLEAN NOT NULL,' +
+        'due_date DATE);');
 
         query.on('end', function(){
           console.log('Task table has been created');

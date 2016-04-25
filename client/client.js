@@ -4,7 +4,6 @@ app.controller('BehindCurtain', ['$http', function($http){
   var vm = this;
   vm.taskList = [];
   vm.oneTask = {};
-  // vm.taskContent = '';
   vm.listShow = false;
 
   vm.getAll = function(){
@@ -15,7 +14,7 @@ app.controller('BehindCurtain', ['$http', function($http){
 
   vm.newTask = function(){
 
-    $http.post('/tasks', {task_text: vm.taskContent})
+    $http.post('/tasks', {task_content: vm.oneTask.task_content, task_status: vm.oneTask.task_status, due_date: vm.oneTask.due_date})
     .then(function(serverResponse){
       console.log('newTask message: ' + serverResponse);
       vm.listShow = true;
@@ -24,9 +23,6 @@ app.controller('BehindCurtain', ['$http', function($http){
 
   };
 
-//   [{"id":101,"task_text":"Buy a trampoline"}]
-//   INSERT INTO <table_id> (<column_name> {, <column_name>}*) VALUES (<value> {, <value>}*)
-// { {;INSERT INTO <table_id> (<column_name> {, <column_name>}*) VALUES (<value> {, <value>}*)}* ;}
 
   vm.beGone = function(){
 

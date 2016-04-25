@@ -28,10 +28,15 @@
       <div class="col-md-6">
         <div class="input well well-sm">
           <h4>New Task</h4>
-          <input type="text" name="name" placeholder="Ex: Buy a trampoline" ng-model="vm.taskContent">
+          <input type="text" name="name" placeholder="Ex: Buy a trampoline" ng-model="vm.oneTask.task_content">
+          <input type="date" ng-model="vm.oneTask.due_date">
           <button type="button" name="submit" ng-click="vm.newTask()">Add</button>
           <button type="button" name="clear" ng-click="vm.clear()">Clear</button>
         </div>
+
+        debug: {{vm.taskList}}
+        {{vm.oneTask}}
+        {{vm.oneTask.task_content}}
       </div><!-- ::: CLOSE INPUT ::: -->
 
       <!-- :::::::::::::: MESSAGE LIST ::::::::::::::: -->
@@ -41,7 +46,7 @@
           <li ng-repeat="item in vm.taskList track by $index">{{item}}</li>
           <button type="button" name="delete" ng-click="vm.beGone()">Delete</button>
 
-          <!-- debug: {{vm.list}} -->
+
 
         </ol>
       </div> <!-- ::: CLOSE LIST ::: -->
