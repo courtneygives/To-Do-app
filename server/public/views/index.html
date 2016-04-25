@@ -27,7 +27,7 @@
       <!-- :::::::::::::: MESSAGE INPUT ::::::::::::::: -->
       <div class="col-md-6">
         <div class="input well well-sm">
-          <h4>New Task</h4>
+          <h4>Enter Task</h4>
           <input type="text" name="name" placeholder="Ex: Buy a trampoline" ng-model="vm.oneTask.task_content">
           <input type="date" ng-model="vm.oneTask.due_date">
           <button type="button" name="submit" ng-click="vm.newTask()">Add</button>
@@ -40,16 +40,30 @@
       </div><!-- ::: CLOSE INPUT ::: -->
 
       <!-- :::::::::::::: MESSAGE LIST ::::::::::::::: -->
+
       <div class="col-md-6">
-        <ol class="well well-sm" ng-show="vm.listShow">
-          <h4>To Do:</h4>
-          <li ng-repeat="item in vm.taskList track by $index">{{item}}</li>
-          <button type="button" name="delete" ng-click="vm.beGone()">Delete</button>
 
+        <h4>To Do</h4>
 
+        <div class="panel panel-default" ng-repeat="item in vm.taskList track by $index">
+          <div class="panel-body">
+            Task: {{item.task_content}}
+            Due: {{item.due_date}}
+            <input type="checkbox" class="checkbox-inline" ng-click="vm.markDone()">
+            <button type="button" name="delete" ng-click="vm.beGone(item.id)">Delete</button>
+          </div>
+        </div>
 
-        </ol>
-      </div> <!-- ::: CLOSE LIST ::: -->
+        <!-- <h4>Completed</h4>
+        <div class="panel panel-default" ng-repeat="item in vm.taskList track by $index">
+          <div class="panel-body">
+            Task: {{item.task_content}}
+            Due: {{item.due_date}}
+            <input type="checkbox" class="checkbox-inline" ng-click="vm.markDone()">
+            <button type="button" name="delete" ng-click="vm.beGone()">Delete</button>
+          </div>
+        </div> -->
+      </div> <!-- ::: CLOSE COLUMN ::: -->
     </div>
   </div>
 

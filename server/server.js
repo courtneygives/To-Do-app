@@ -8,10 +8,11 @@ var port = process.env.PORT || 3000;
 var index = require('./routes/index-routes.js');
 var tasks = require('./routes/tasks.js');
 
-
+app.use(bodyParser.json());
 app.use(express.static('server/public'));
 app.use('/', index);
 app.use('/tasks', tasks);
+
 
 initializeDB();
 
